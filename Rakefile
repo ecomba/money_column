@@ -1,14 +1,10 @@
-#!/usr/bin/env ruby
 require 'rubygems'
 require 'rake'
-require 'spec/rake/spectask'
+require "rspec/core/rake_task"
 
+task :default => [:core]
 
-task :default => [:spec]
-
-desc "Run all spec examples"
-Spec::Rake::SpecTask.new do |t|
-  t.libs << "spec"
-  t.spec_files = FileList['spec/**/*_spec.rb']
-  t.spec_opts = ['--options', %\"#{File.dirname(__FILE__)}/spec/spec.opts"\]
+RSpec::Core::RakeTask.new(:core) do |spec|
+    spec.pattern = 'spec/**/*_spec.rb'
+      spec.rspec_opts = ['--backtrace']
 end
